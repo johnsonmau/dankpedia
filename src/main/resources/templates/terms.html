@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/font-awesome/css/font-awesome.min.css">
+    <!-- jQuery library -->
+    <script src="/js/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="/js/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/style.css"/>
+
+    <title>Terms and Conditions</title>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-sm navbar-dark fixed-top py-0">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" th:href="@{/}">Dankpedia</a>
+        </div>
+        <div class="navbar-collapse" id="myNavbar">
+            <div class="offcanvas-header mt-3">
+                <button hidden id="closeButtonCollapse" class="btn btn-warning btn-close float-right">Close</button>
+            </div>
+            <ul class="nav navbar-nav ml-auto">
+                <li class="nav-item"><a class="nav-link" href="/#reviews">REVIEWS</a></li>
+                <li class="nav-item"><a class="nav-link" href="/#strains">STRAINS</a></li>
+                <li class="nav-item"><a class="nav-link" href="/#contact">CONTACT</a></li>
+                <li class="nav-item" th:if="${user} == null"><a class="nav-link" style="color:black!important;"
+                                                                th:href="@{/registration}">SIGN UP</a></li>
+                <li class="nav-item" th:if="${user} == null"><a class="nav-link" style="color:black!important;"
+                                                                th:href="@{/login}">LOGIN</a></li>
+                <li th:if="${user} != null" class="dropdown">
+                    <a class="nav-link dropdown-toggle" style="color:#fca95b!important;"
+                       th:utext="${theHtml}+${user.username}" href="#" id="navbardrop" data-toggle="dropdown"></a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" style="color:#fca95b!important;" th:href="@{/dashboard}">Dashboard</a>
+                        <a class="dropdown-item" style="color:#fca95b!important;" th:href="@{/logout}">Logout</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <button class="navbar-toggler" type="button" data-trigger="#myNavbar">
+            <span class="navbar-toggler-icon ml-auto"></span>
+        </button>
+    </div>
+</nav>
+<br><br>
+<div class="container">
+    <br>
+    <h2>Terms and Conditions</h2>
+    <small>Last updated: January 2020</small>
+    <br><br>
+    <p>Please read these Terms and Conditions before using https://www.dankpedia.com.
+        Your access to and use of the Service is conditioned on your acceptance of and compliance with
+        these Terms. These Terms apply to all visitors, users and others who access or use the Service.
+        By accessing or using the Service you agree to be bound by these Terms. If you disagree
+        with any part of the terms then you may not access the Service.
+        Purchases</p>
+    <h4 style="display: inline;">Content</h4>
+    <p>You must be 21 years of age or older to use Dankpedia. Our Service allows you to post, link, store, share and
+        otherwise make available certain information,
+        text, graphics, videos, or other material.
+    <h4 style="display: inline;">Links To Other Web Sites</h4>
+    <p>Our Service may contain links to third-party web sites or services that are not owned or controlled
+        by Dankpedia.
+        Dankpedia has no control over, and assumes no responsibility for, the content,
+        privacy policies, or practices of any third party web sites or services. You further acknowledge and
+        agree that Dankpedia shall not be responsible or liable, directly or indirectly, for any
+        damage or loss caused or alleged to be caused by or in connection with use of or reliance on any
+        such content, goods or services available on or through any such web sites or services.</p>
+    <h4 style="display: inline;">Changes</h4>
+    <p>We reserve the right, at our sole discretion, to modify or replace these Terms at any time. If a
+        revision is made we will try to provide at least 30 days' notice prior to any new terms
+        taking effect. What constitutes a material change will be determined at our sole discretion.</p>
+    <h4 style="display: inline;">Contact Us</h4>
+    <p> If you have any questions about these Terms, please <a href="/#contact">contact us</a>.</p>
+</div>
+
+<footer class="container-fluid text-center">
+    <br><br>
+    <a href="/terms">Terms and Conditions</a><span> | </span><a href="/privacy">Privacy Policy</a>
+</footer>
+
+<!--<script src="js/dashboard.js"></script>-->
+</body>
+</html>

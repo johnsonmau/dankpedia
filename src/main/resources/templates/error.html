@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/font-awesome/css/font-awesome.min.css">
+    <!-- jQuery library -->
+    <script src="/js/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="/js/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/style.css"/>
+
+    <title>404</title>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-sm navbar-dark fixed-top py-0">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" th:href="@{/}">Dankpedia</a>
+        </div>
+        <div class="navbar-collapse" id="myNavbar">
+            <div class="offcanvas-header mt-3">
+                <button hidden id="closeButtonCollapse" class="btn btn-warning btn-close float-right">Close</button>
+            </div>
+            <ul class="nav navbar-nav ml-auto">
+                <li class="nav-item"><a class="nav-link" href="/#reviews">REVIEWS</a></li>
+                <li class="nav-item"><a class="nav-link" href="/#strains">STRAINS</a></li>
+                <li class="nav-item"><a class="nav-link" href="/#contact">CONTACT</a></li>
+                <li class="nav-item" th:if="${user} == null"><a class="nav-link" style="color:black!important;"
+                                                                th:href="@{/registration}">SIGN UP</a></li>
+                <li class="nav-item" th:if="${user} == null"><a class="nav-link" style="color:black!important;"
+                                                                th:href="@{/login}">LOGIN</a></li>
+                <li th:if="${user} != null" class="dropdown">
+                    <a class="nav-link dropdown-toggle" style="color:#fca95b!important;"
+                       th:utext="${theHtml}+${user.username}" href="#" id="navbardrop" data-toggle="dropdown"></a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" style="color:#fca95b!important;" th:href="@{/dashboard}">Dashboard</a>
+                        <a class="dropdown-item" style="color:#fca95b!important;" th:href="@{/logout}">Logout</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <button class="navbar-toggler" type="button" data-trigger="#myNavbar">
+            <span class="navbar-toggler-icon ml-auto"></span>
+        </button>
+    </div>
+</nav>
+<br><br>
+<div class="container">
+<center><h1 style="color: black">404 - PAGE NOT FOUND</h1></center>
+</div>
+
+<footer class="container-fluid text-center">
+    <br><br>
+    <a href="/terms">Terms and Conditions</a><span> | </span><a href="/privacy">Privacy Policy</a>
+</footer>
+
+<!--<script src="js/dashboard.js"></script>-->
+</body>
+</html>

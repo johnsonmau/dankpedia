@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/font-awesome/css/font-awesome.min.css">
+    <!-- jQuery library -->
+    <script src="/js/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="/js/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/jquery.rateyo.min.css"/>
+
+    <title th:text="${strain}"></title>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-sm navbar-dark fixed-top py-0">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" th:href="@{/}">Dankpedia</a>
+        </div>
+        <div class="navbar-collapse" id="myNavbar">
+            <div class="offcanvas-header mt-3">
+                <button hidden id="closeButtonCollapse" class="btn btn-warning btn-close float-right">Close</button>
+            </div>
+            <ul class="nav navbar-nav ml-auto">
+                <li class="nav-item"><a class="nav-link" href="/#reviews">REVIEWS</a></li>
+                <li class="nav-item"><a class="nav-link" href="/#strains">STRAINS</a></li>
+                <li class="nav-item"><a class="nav-link" href="/#contact">CONTACT</a></li>
+                <li class="nav-item" th:if="${user} == null"><a class="nav-link" style="color:black!important;"
+                                                                th:href="@{/registration}">SIGN UP</a></li>
+                <li class="nav-item" th:if="${user} == null"><a class="nav-link" style="color:black!important;"
+                                                                th:href="@{/login}">LOGIN</a></li>
+                <li th:if="${user} != null" class="dropdown">
+                    <a class="nav-link dropdown-toggle" style="color:#fca95b!important;"
+                       th:utext="${theHtml}+${user.username}" href="#" id="navbardrop" data-toggle="dropdown"></a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" style="color:#fca95b!important;" th:href="@{/dashboard}">Dashboard</a>
+                        <a class="dropdown-item" style="color:#fca95b!important;" th:href="@{/logout}">Logout</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <button class="navbar-toggler" type="button" data-trigger="#myNavbar">
+            <span class="navbar-toggler-icon ml-auto"></span>
+        </button>
+    </div>
+</nav>
+<br><br>
+
+<div class="container">
+    <br>
+    <h2 id="strainName" style="display: inline" th:text="${strain}"></h2> <br><a href="#" id="favoriteButton"
+                                                                                 style="display: inline"
+                                                                                 th:utext="${favoriteLink}"></a><br><br>
+    <h3 th:text="${type}"></h3>
+    <p style="display: inline" th:text="${desc}"></p><br>
+    <strong>Effects: </strong>
+    <p style="display: inline" th:text="${effects}"></p><br>
+    <strong>Flavor: </strong>
+    <p style="display: inline" th:text="${flavor}"></p><br>
+    <strong>Rating: </strong>
+    <p style="display: inline" th:text="${rating}"></p>
+</div>
+<br><Br><br>
+<div class="container">
+    <div id="accordion">
+        <div class="card">
+            <div class="card-header">
+                <h3 style="display: inline;"><span th:text="${strain} + ' Reviews'"></span></h3>
+                <button id="addRev" style="float: right" type="button" class="btn btn-warning" data-toggle="modal" data-target="#addReviewModal">Add a review</button>
+            </div>
+            <div id="collapseTwo" class="collapse show" data-parent="#accordion">
+                <div class="card-body">
+                    <div class="container" th:if="${reviewListSize} != 0" th:each="review : ${reviews}">
+                        <i class="fa fa-angle-right" aria-hidden="true"></i><strong style="color: black; padding: 0 5px 0 5px;" th:text="${review.user}"></strong><br>
+                        <small><strong>Posted: </strong><span th:text="${review.createdDate}"></span>
+                            <strong th:if="${review.updatedDate != null}" > Updated: </strong><span th:if="${review.updatedDate != null}" th:text="' '+${review.updatedDate}"></span></small>
+                        <div style="border: .5px solid lightsteelblue; padding: 0 0px 0 5px;">
+
+                            <span style="color: black">Rating: </span><div style="display: inline-block" th:id="'strainRating'+${review.id}"></div>
+                            <span th:text="' '+${review.rating} + ' stars'" style="color: black"></span><br>
+                            <p style="padding: 2px; color: black" th:text="${review.body}"></p>
+
+                        </div>
+                        <a class="userRev2" th:id="${review.id}" data-toggle="modal" data-target="#reviewModal" th:if="${user} != null and (${review.user} == ${user.username})" href="#">Edit your review</a>
+                        <br><br>
+                    </div>
+                    <div class="container" th:if="${reviewListSize} == 0">
+                        <h5 style="color: indianred" th:text="'There are no '+${strain}+' reviews yet. Check back later or add one.'"></h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="addReviewModal" >
+        <div class="modal-dialog">
+            <div class="modal-content" style="width: 100%; height: 100%; left: 50%; right: 50%; transform: translate(-50%, -50%);">
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <center><h4 class="strainPageModalTitle" th:text="'Enter your '+ ${strain} +' review:'"></h4>
+                    <div style="display: inline-block" id="rateYo"></div><small id="starAmount"></small></center><br><br>
+                    <textarea id="reviewBody"></textarea><br>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button id="addRevButton" style="float: right" type="button" class="btn btn-warning">Submit Review</button>
+                    <button type="button" class="btn btn-warning modalClose" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="reviewModal" >
+        <div class="modal-dialog">
+            <div class="modal-content" style="width: 100%; height: 500px; left: 50%; right: 50%; transform: translate(-50%, -50%);">
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <center><h4 class="strainPageModalTitle" style="display: inline;">Edit or delete your review:</h4></center><br><br>
+                    <textarea id="reviewBodyUpdate"></textarea>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button id="updateRevButton" style="float: left" type="button" class="btn btn-warning">Update Review</button>
+                    <button id="deleteReview" style="float: right" type="button" class="btn btn-danger">Delete Review</button>
+                    <button type="button" class="btn btn-warning modalClose" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <footer class="container-fluid text-center">
+        <br><br>
+        <a href="/terms">Terms and Conditions</a><span> | </span><a href="/privacy">Privacy Policy</a>
+    </footer>
+
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+
+        var disabledFavLink = /*[[${disabled}]]*/ 'default';
+        var strainForRev = /*[[${strain}]]*/ 'default';
+        var usernameForRev = /*[[${username}]]*/ 'default';
+        var reviews = /*[[${reviews}]]*/ 'default';
+
+        var globalStrainRating;
+
+        $(document).ready(function() {
+
+            $(function () {
+                $("#rateYo").rateYo()
+                    .on("rateyo.set", function (e, data) {
+                        globalStrainRating = data.rating;
+                    });
+            });
+
+            for (var i = 0; i < reviews.length; i++) {
+                var theRating = reviews[i].rating
+
+                if (theRating == undefined) {
+                    theRating = 0;
+                }
+
+                $('#strainRating' + reviews[i].id).rateYo({
+                    rating: theRating,
+                    halfStar: true,
+                    readOnly: true,
+                    starWidth: "20px"
+                });
+
+            }
+
+            $(function () {
+                $("#rateYo").rateYo()
+                    .on("rateyo.set", function (e, data) {
+                        var rating = data.rating;
+                        document.getElementById("starAmount").innerHTML = rating + " stars"
+                    });
+            });
+
+            $(function () {
+                $("#rateYo").rateYo({
+                    halfStar: true
+                });
+            });
+
+        })
+        /*]]>*/
+    </script>
+    <script src="/js/dashboard.js"></script>
+    <script src="/js/jquery.rateyo.min.js"></script>
+
+</div>
+</body>
+</html>

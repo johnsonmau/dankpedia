@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>Dankpedia</title>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/font-awesome/css/font-awesome.min.css">
+    <!-- jQuery library -->
+    <script src="/js/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="/js/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/style.css"/>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-173633531-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-173633531-1');
+    </script>
+
+    <script data-ad-client="ca-pub-6985265472004681" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+</head>
+<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+
+<div class="container">
+    <nav class="navbar navbar-expand-sm navbar-dark fixed-top py-0">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" th:href="@{/}">Dankpedia</a>
+            </div>
+            <div class="navbar-collapse" id="myNavbar">
+                <div class="offcanvas-header mt-3">
+                    <button hidden id="closeButtonCollapse" class="btn btn-warning btn-close float-right">Close</button>
+                </div>
+                <ul class="nav navbar-nav ml-auto">
+                    <li class="nav-item"><a class="nav-link" href="#reviews">REVIEWS</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#strains">STRAINS</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">CONTACT</a></li>
+                    <li class="nav-item" th:if="${user} == null"><a class="nav-link" style="color:black!important;" th:href="@{/registration}">SIGN UP</a></li>
+                    <li class="nav-item" th:if="${user} == null"><a class="nav-link" style="color:black!important;" th:href="@{/login}">LOGIN</a></li>
+                    <li th:if="${user} != null" class="dropdown">
+                        <a class="nav-link dropdown-toggle" style="color:#fca95b!important;" th:utext="${theHtml}+${user.username}" href="#" id="navbardrop" data-toggle="dropdown"></a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" style="color:#fca95b!important;" th:href="@{/dashboard}">Dashboard</a>
+                            <a class="dropdown-item" style="color:#fca95b!important;" th:href="@{/logout}">Logout</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <button class="navbar-toggler" type="button" data-trigger="#myNavbar">
+                <span class="navbar-toggler-icon ml-auto"></span>
+            </button>
+        </div>
+    </nav>
+<br>
+
+<!-- Container (Welcome Section) -->
+<div id="welcome" class="container-fluid">
+    <center><h1 style="display: inline; color: black; text-transform: uppercase">Welcome!</h1></center>
+    <div class="row">
+        <div class="col-sm-4">
+            <img src="img/Cannabis_leaf.png" style="width: 300px; height: 300px"/>
+        </div>
+        <div class="col-sm-8">
+            <center><br>
+            <br>
+            <p style="display: inline">Here at Dankpedia, you will be able to find the perfect strain that suits you! Save yourself some time before your next trip to the dispensary by picking a strain out ahead of time!
+                Browse our database of cannabis strains and take a look at our reviews to find YOUR strain. Not every cannabis strain is for everyone.
+                We break down every strain by the flavor, effects, and strain type (Indica, Sativa, Hybrid). These characteristics will help you find the perfect strain! Users have the ability to add various strains
+                to their favorites. Users can also leave reviews on any strain they'd like. Reviews will help other users further determine what strain works for them. Click <a href="/login">HERE</a> to login or click
+                <a href="/registration">HERE</a> to create an account with us!</p></center>
+        </div>
+    </div>
+</div>
+
+<!-- Container (Portfolio Section) -->
+<div id="reviews" class="container-fluid text-center bg-grey">
+    <div id="myCarousel" class="carousel slide text-center" data-ride="carousel">
+        <h2 style="display: inline">Reviews</h2>
+        <!-- Indicators -->
+        <ul class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
+        </ul>
+
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner" role="listbox">
+            <div class="carousel-item active">
+                <h4>"Blue dream is one of my favorite strains of all time!"<br><span>Peter M.</span></h4>
+            </div>
+            <div class="carousel-item">
+                <h4>"Khalifa kush is amazing!"<br><span>Matt J.</span></h4>
+            </div>
+            <div class="carousel-item">
+                <h4>"I love that I have information on every strain at the tip of my hands."<br><span>Briana C.</span></h4>
+            </div>
+        </div>
+
+        <!-- Left and right controls -->
+        <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon revArrow"></span>
+        </a>
+        <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+            <span class="carousel-control-next-icon revArrow"></span>
+        </a>
+    </div>
+</div>
+
+    <!-- Container (Strains Section) -->
+    <div id="strains" class="container-fluid text-center">
+        <h2 id="strainsTitle">Search Strains:</h2>
+        <input id="strainSearch" type="text" placeholder="" />
+
+            <table id="buttonTable" class="table table-borderless dropdownTable">
+                <tbody>
+                <tr>
+                    <td>
+                        <div class="dropdown">
+                            <button id="dropdownTitle" class="btn btn-warning dropdown-toggle" type="button" data-toggle="dropdown">Type
+                                <span class="caret"></span></button>
+                            <ul id="sortDropdown" class="dropdown-menu">
+                                <li><a class="dropdown-item" href="">Indica</a></li>
+                                <li><a class="dropdown-item" href="">Sativa</a></li>
+                                <li><a class="dropdown-item" href="">Hybrid</a></li>
+                            </ul>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="dropdown">
+                            <button id="dropdownTitle2" class="btn btn-warning dropdown-toggle" type="button" data-toggle="dropdown">Sort
+                                <span class="caret"></span></button>
+                            <ul id="sortDropdown2" class="dropdown-menu">
+                                <li><a class="dropdown-item" href="">Alphabetical Order</a></li>
+                                <li><a class="dropdown-item" href="">Rating</a></li>
+                            </ul>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="resetDev">
+                            <button id="resetButton" class="btn btn-link" type="button">Reset</button>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        <br/>
+        <br>
+        <div class="row slideanim">
+
+            <table id="strainTable" class="table table-dark table-hover">
+                <tbody>
+                <tr>
+                    <td><a class="aStrain" id="strain1" data-toggle="modal" data-target="#strainModal"></a></td>
+                    <td><a class="aStrain" id="strain2" data-toggle="modal" data-target="#strainModal"></a></td>
+                </tr>
+                <tr>
+                    <td><a class="aStrain" id="strain3" data-toggle="modal" data-target="#strainModal"></a></td>
+                    <td><a class="aStrain" id="strain4" data-toggle="modal" data-target="#strainModal"></a></td>
+                </tr>
+                <tr>
+                    <td><a class="aStrain" id="strain5" data-toggle="modal" data-target="#strainModal"></a></td>
+                    <td><a class="aStrain" id="strain6" data-toggle="modal" data-target="#strainModal"></a></td>
+                </tr>
+                <tr>
+                    <td><a class="aStrain" id="strain7" data-toggle="modal" data-target="#strainModal"></a></td>
+                    <td><a class="aStrain" id="strain8" data-toggle="modal" data-target="#strainModal"></a></td>
+                </tr>
+                <tr>
+                    <td><a class="aStrain" id="strain9" data-toggle="modal" data-target="#strainModal"></a></td>
+                    <td><a class="aStrain" id="strain10" data-toggle="modal" data-target="#strainModal"></a></td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="btn-group" style="margin: auto;">
+            <input type="button" class="btn btn-warning" value="Previous" id="prev" />
+            <input type="button" class="btn btn-warning" value="Next" id="next" />
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="strainModal" >
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <h2 style="display: inline;"><a class="strainPageLink" href="" id="strainName"></a></h2>
+                    <h6 id="favoriteText"><a id="favoriteButton" href="" >add to favorites</a></h6>
+                    <h4 id="theStrainType"></h4>
+                    <p><strong>Description: </strong><span id="theDesc"></span></p>
+                    <p><strong>Effects: </strong><span id="theEffects"></span></p>
+                    <p><strong>Flavor: </strong><span id="theFlavor"></span></p>
+                    <p><strong>Rating: </strong><span id="theRating"></span></p>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+<!-- Container (Contact Section) -->
+<div id="contact" class="container-fluid bg-grey">
+    <h2 class="text-center">CONTACT</h2>
+    <div class="row">
+        <div class="col-sm-5">
+            <p>Contact us and we'll get back to you within 24 hours.</p>
+            <p><span class="glyphicon glyphicon-map-marker"></span> Connecticut, US</p>
+            <span id="message"></span>
+<!--            <p><span class="glyphicon glyphicon-envelope"></span> myemail@something.com</p>-->
+        </div>
+        <div class="col-sm-7 slideanim">
+            <div class="row">
+                <div class="col-sm-6 form-group">
+                    <input class="form-control" id="name" th:value="${fullName}" name="name" placeholder="Name" type="text" required>
+                </div>
+                <div class="col-sm-6 form-group">
+                    <input class="form-control" id="email" name="email" th:value="${theEmail}" placeholder="Email" type="email" required>
+                </div>
+            </div>
+            <textarea class="form-control" id="comments" name="comments" placeholder="Comment" rows="5" required></textarea><br>
+            <div class="row">
+                <div class="col-sm-12 form-group">
+                    <button id="sendEmail" class="btn btn-warning pull-right" type="submit">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- cookie warning toast -->
+<!--    <div class="fixed-bottom p-4">-->
+<!--        <div class="toast bg-dark text-white w-100 mw-100" role="alert" data-autohide="false">-->
+<!--            <div class="toast-body p-4 d-flex flex-column">-->
+<!--                <h4 style="color: green">Cookie Warning</h4>-->
+<!--                <p>-->
+<!--                    This website stores data such as cookies to enable site functionality including analytics and personalization. By using this website, you automatically accept that we use cookies.-->
+<!--                </p>-->
+<!--                <div class="ml-auto">-->
+<!--                    <button type="button" class="btn btn-outline-light mr-3" id="btnDeny">-->
+<!--                        Deny-->
+<!--                    </button>-->
+<!--                    <button type="button" class="btn btn-light" id="btnAccept">-->
+<!--                        Accept-->
+<!--                    </button>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+
+
+    <footer class="container-fluid text-center">
+    <a href="#myPage" title="To Top">
+        <i style="color: green" class="fa fa-arrow-circle-o-up fa-3x" aria-hidden="true"></i>
+    </a>
+    <br><br>
+    <a href="/terms">Terms and Conditions</a><span> | </span><a href="/privacy">Privacy Policy</a>
+</footer>
+
+</div>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+
+    var disabledFavLink = /*[[${disabled}]]*/ 'default';
+
+    /*]]>*/
+</script>
+
+<script src="js/index.js"></script>
+<!--<script src="js/cookies.js"></script>-->
+
+</body>
+</html>

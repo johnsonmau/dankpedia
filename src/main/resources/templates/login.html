@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/font-awesome/css/font-awesome.min.css">
+    <!-- jQuery library -->
+    <script src="/js/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="/js/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/style.css"/>
+    <title>Login</title>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-sm navbar-dark fixed-top py-0">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" th:href="@{/}">Dankpedia</a>
+        </div>
+        <div class="navbar-collapse" id="myNavbar">
+            <div class="offcanvas-header mt-3">
+                <button hidden id="closeButtonCollapse" class="btn btn-warning btn-close float-right">Close</button>
+            </div>
+            <ul class="nav navbar-nav ml-auto">
+                <li class="nav-item"><a class="nav-link" href="/#reviews">REVIEWS</a></li>
+                <li class="nav-item"><a class="nav-link" href="/#strains">STRAINS</a></li>
+                <li class="nav-item"><a class="nav-link" href="/#contact">CONTACT</a></li>
+            </ul>
+        </div>
+        <button class="navbar-toggler" type="button" data-trigger="#myNavbar">
+            <span class="navbar-toggler-icon ml-auto"></span>
+        </button>
+    </div>
+</nav>
+
+<br>
+<br>
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3" style="margin: auto;"><br>
+            <h2 align="center" style="color:black">Login to Dankpedia</h2>
+            <form th:action="@{/login}" method="post">
+                <div th:if="${param.error}">
+                    <div class="alert alert-danger">Invalid username or
+                        password.
+                    </div>
+                </div>
+                <div th:if="${param.logout}">
+                    <div class="alert alert-info">You have been logged out.</div>
+                </div>
+                <div class="form-group">
+                    <label for="username" style="color:black">Email</label>: <input type="text"
+                                                                                    id="username" name="username"
+                                                                                    class="form-control"
+                                                                                    autofocus="autofocus"
+                                                                                    placeholder="Email"/>
+                </div>
+                <div class="form-group">
+                    <label for="password" style="color:black">Password</label>: <input type="password"
+                                                                                       id="password" name="password"
+                                                                                       class="form-control"
+                                                                                       placeholder="Password"/>
+                </div>
+                <div>
+                    <div>
+                        <div>
+                            <input type="submit" name="login-submit" id="login-submit"
+                                   class="form-control btn btn-warning" value="Log In"/>
+                            <span>New user? <a href="/" th:href="@{/registration}">Register
+								here</a></span><span style="float: right"><a href="/forgot">Forgot password?</a></span>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+
+</div>
+
+
+<footer class="container-fluid text-center">
+    <br><br>
+    <a href="/terms">Terms and Conditions</a><span> | </span><a href="/privacy">Privacy Policy</a>
+</footer>
+
+<script src="/js/dashboard.js"></script>
+</body>
+</html>
